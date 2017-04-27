@@ -8,6 +8,7 @@ namespace Project1 {
 	using namespace System::Windows::Forms;
 	using namespace System::Data;
 	using namespace System::Drawing;
+	using namespace System::IO;
 
 	/// <summary>
 	/// Summary for MyForm
@@ -15,9 +16,14 @@ namespace Project1 {
 	public ref class MyForm : public System::Windows::Forms::Form
 	{
 	public:
+		String ^ eventTime;
+		String ^ eventName;
+		String ^ userNotes;
+		StreamWriter ^ outputStream;
 		MyForm(void)
 		{
 			InitializeComponent();
+			outputStream = gcnew StreamWriter("eventLog", true);
 			//
 			//TODO: Add the constructor code here
 			//
@@ -40,34 +46,19 @@ namespace Project1 {
 	protected:
 	private: System::Windows::Forms::GroupBox^  groupBox1;
 	private: System::Windows::Forms::Label^  labelNotes;
-
 	private: System::Windows::Forms::Label^  labelEventTitle;
-
 	private: System::Windows::Forms::Label^  labelDayPicker;
-
 	private: System::Windows::Forms::TextBox^  eventTitleTF;
 	private: System::Windows::Forms::DateTimePicker^  dateTimePicker;
-
-
 	private: System::Windows::Forms::Timer^  timer1;
 	private: System::Windows::Forms::Label^  labelAlarmPicker;
-
 	private: System::Windows::Forms::TextBox^  NotesTF;
 	private: System::Windows::Forms::NumericUpDown^  alarmTimePicker;
 	private: System::Windows::Forms::Label^  labelUEO;
-
-
-
-
 	private: System::Windows::Forms::ListView^  eventPreview;
 	private: System::Windows::Forms::Button^  buttonNewClear;
-
-
 	private: System::Windows::Forms::Button^  buttonSaveEvent;
-
 	private: System::Windows::Forms::CheckBox^  alarmCheckBox;
-
-
 	private: System::ComponentModel::IContainer^  components;
 
 	protected:
@@ -131,7 +122,6 @@ namespace Project1 {
 			this->groupBox1->TabIndex = 1;
 			this->groupBox1->TabStop = false;
 			this->groupBox1->Text = L"New Event";
-			this->groupBox1->Enter += gcnew System::EventHandler(this, &MyForm::groupBox1_Enter);
 			// 
 			// buttonNewClear
 			// 
@@ -141,6 +131,7 @@ namespace Project1 {
 			this->buttonNewClear->TabIndex = 13;
 			this->buttonNewClear->Text = L"New/Clear";
 			this->buttonNewClear->UseVisualStyleBackColor = true;
+			this->buttonNewClear->Click += gcnew System::EventHandler(this, &MyForm::buttonNewClear_Click);
 			// 
 			// buttonSaveEvent
 			// 
@@ -150,6 +141,7 @@ namespace Project1 {
 			this->buttonSaveEvent->TabIndex = 12;
 			this->buttonSaveEvent->Text = L"Save Event";
 			this->buttonSaveEvent->UseVisualStyleBackColor = true;
+			this->buttonSaveEvent->Click += gcnew System::EventHandler(this, &MyForm::buttonSaveEvent_Click);
 			// 
 			// alarmCheckBox
 			// 
@@ -169,6 +161,7 @@ namespace Project1 {
 			this->NotesTF->Name = L"NotesTF";
 			this->NotesTF->Size = System::Drawing::Size(351, 118);
 			this->NotesTF->TabIndex = 8;
+			this->NotesTF->TextChanged += gcnew System::EventHandler(this, &MyForm::NotesTF_TextChanged);
 			// 
 			// alarmTimePicker
 			// 
@@ -177,7 +170,6 @@ namespace Project1 {
 			this->alarmTimePicker->Name = L"alarmTimePicker";
 			this->alarmTimePicker->Size = System::Drawing::Size(92, 20);
 			this->alarmTimePicker->TabIndex = 7;
-			this->alarmTimePicker->ValueChanged += gcnew System::EventHandler(this, &MyForm::numericUpDown1_ValueChanged);
 			// 
 			// labelAlarmPicker
 			// 
@@ -187,7 +179,6 @@ namespace Project1 {
 			this->labelAlarmPicker->Size = System::Drawing::Size(97, 13);
 			this->labelAlarmPicker->TabIndex = 6;
 			this->labelAlarmPicker->Text = L"Alarm (0-48 Hours):";
-			this->labelAlarmPicker->Click += gcnew System::EventHandler(this, &MyForm::label4_Click);
 			// 
 			// eventTitleTF
 			// 
@@ -195,13 +186,18 @@ namespace Project1 {
 			this->eventTitleTF->Name = L"eventTitleTF";
 			this->eventTitleTF->Size = System::Drawing::Size(200, 20);
 			this->eventTitleTF->TabIndex = 4;
+			this->eventTitleTF->TextChanged += gcnew System::EventHandler(this, &MyForm::eventTitleTF_TextChanged);
 			// 
 			// dateTimePicker
 			// 
+			this->dateTimePicker->CustomFormat = L"MM/dd/yyyy hh:mm tt";
+			this->dateTimePicker->Format = System::Windows::Forms::DateTimePickerFormat::Custom;
 			this->dateTimePicker->Location = System::Drawing::Point(52, 47);
 			this->dateTimePicker->Name = L"dateTimePicker";
+			this->dateTimePicker->ShowUpDown = true;
 			this->dateTimePicker->Size = System::Drawing::Size(200, 20);
 			this->dateTimePicker->TabIndex = 3;
+			this->dateTimePicker->ValueChanged += gcnew System::EventHandler(this, &MyForm::dateTimePicker_ValueChanged);
 			// 
 			// labelNotes
 			// 
@@ -211,7 +207,6 @@ namespace Project1 {
 			this->labelNotes->Size = System::Drawing::Size(38, 13);
 			this->labelNotes->TabIndex = 2;
 			this->labelNotes->Text = L"Notes:";
-			this->labelNotes->Click += gcnew System::EventHandler(this, &MyForm::label3_Click);
 			// 
 			// labelEventTitle
 			// 
@@ -221,7 +216,6 @@ namespace Project1 {
 			this->labelEventTitle->Size = System::Drawing::Size(61, 13);
 			this->labelEventTitle->TabIndex = 1;
 			this->labelEventTitle->Text = L"Event Title:";
-			this->labelEventTitle->Click += gcnew System::EventHandler(this, &MyForm::label2_Click);
 			// 
 			// labelDayPicker
 			// 
@@ -231,7 +225,6 @@ namespace Project1 {
 			this->labelDayPicker->Size = System::Drawing::Size(62, 13);
 			this->labelDayPicker->TabIndex = 0;
 			this->labelDayPicker->Text = L"Day Picker:";
-			this->labelDayPicker->Click += gcnew System::EventHandler(this, &MyForm::label1_Click);
 			// 
 			// labelUEO
 			// 
@@ -270,19 +263,29 @@ namespace Project1 {
 
 		}
 #pragma endregion
-	private: System::Void dateTimePicker1_ValueChanged(System::Object^  sender, System::EventArgs^  e) {
+	private: System::Void dateTimePicker_ValueChanged(System::Object^  sender, System::EventArgs^  e) {
+		eventTime = dateTimePicker->Value.ToShortDateString();
 	}
-	private: System::Void label1_Click(System::Object^  sender, System::EventArgs^  e) {
+	private: System::Void eventTitleTF_TextChanged(System::Object^  sender, System::EventArgs^  e) {
+		eventName = eventTitleTF->Text;
 	}
-private: System::Void label3_Click(System::Object^  sender, System::EventArgs^  e) {
-}
-private: System::Void groupBox1_Enter(System::Object^  sender, System::EventArgs^  e) {
-}
-private: System::Void label2_Click(System::Object^  sender, System::EventArgs^  e) {
-}
-private: System::Void label4_Click(System::Object^  sender, System::EventArgs^  e) {
-}
-private: System::Void numericUpDown1_ValueChanged(System::Object^  sender, System::EventArgs^  e) {
-}
+	private: System::Void NotesTF_TextChanged(System::Object^  sender, System::EventArgs^  e) {
+		userNotes = NotesTF->Text;
+	}
+
+	private: System::Void buttonSaveEvent_Click(System::Object^  sender, System::EventArgs^  e) {
+		if (eventName->Length > 0) {
+			outputStream->WriteLine(eventName + "$@$" + eventTime + "$@$" + userNotes);
+			outputStream->Flush();
+		}
+	}
+	private: System::Void buttonNewClear_Click(System::Object^  sender, System::EventArgs^  e) {
+		dateTimePicker->Value = dateTimePicker->Value.Now;
+		eventTime->Empty;
+		eventTitleTF->Clear();
+		eventName->Empty;
+		NotesTF->Clear();
+		userNotes->Empty;
+	}
 };
 }
