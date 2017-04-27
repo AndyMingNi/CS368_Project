@@ -47,7 +47,8 @@ namespace Project1 {
 	private: System::Windows::Forms::GroupBox^  groupBox1;
 	private: System::Windows::Forms::Label^  labelNotes;
 	private: System::Windows::Forms::Label^  labelEventTitle;
-	private: System::Windows::Forms::Label^  labelDayPicker;
+	private: System::Windows::Forms::Label^  labelDatePicker;
+
 	private: System::Windows::Forms::TextBox^  eventTitleTF;
 	private: System::Windows::Forms::DateTimePicker^  dateTimePicker;
 	private: System::Windows::Forms::Timer^  timer1;
@@ -89,7 +90,7 @@ namespace Project1 {
 			this->dateTimePicker = (gcnew System::Windows::Forms::DateTimePicker());
 			this->labelNotes = (gcnew System::Windows::Forms::Label());
 			this->labelEventTitle = (gcnew System::Windows::Forms::Label());
-			this->labelDayPicker = (gcnew System::Windows::Forms::Label());
+			this->labelDatePicker = (gcnew System::Windows::Forms::Label());
 			this->timer1 = (gcnew System::Windows::Forms::Timer(this->components));
 			this->labelUEO = (gcnew System::Windows::Forms::Label());
 			this->eventPreview = (gcnew System::Windows::Forms::ListView());
@@ -115,7 +116,7 @@ namespace Project1 {
 			this->groupBox1->Controls->Add(this->dateTimePicker);
 			this->groupBox1->Controls->Add(this->labelNotes);
 			this->groupBox1->Controls->Add(this->labelEventTitle);
-			this->groupBox1->Controls->Add(this->labelDayPicker);
+			this->groupBox1->Controls->Add(this->labelDatePicker);
 			this->groupBox1->Location = System::Drawing::Point(257, 18);
 			this->groupBox1->Name = L"groupBox1";
 			this->groupBox1->Size = System::Drawing::Size(415, 328);
@@ -217,14 +218,14 @@ namespace Project1 {
 			this->labelEventTitle->TabIndex = 1;
 			this->labelEventTitle->Text = L"Event Title:";
 			// 
-			// labelDayPicker
+			// labelDatePicker
 			// 
-			this->labelDayPicker->AutoSize = true;
-			this->labelDayPicker->Location = System::Drawing::Point(7, 31);
-			this->labelDayPicker->Name = L"labelDayPicker";
-			this->labelDayPicker->Size = System::Drawing::Size(62, 13);
-			this->labelDayPicker->TabIndex = 0;
-			this->labelDayPicker->Text = L"Day Picker:";
+			this->labelDatePicker->AutoSize = true;
+			this->labelDatePicker->Location = System::Drawing::Point(7, 31);
+			this->labelDatePicker->Name = L"labelDatePicker";
+			this->labelDatePicker->Size = System::Drawing::Size(66, 13);
+			this->labelDatePicker->TabIndex = 0;
+			this->labelDatePicker->Text = L"Date Picker:";
 			// 
 			// labelUEO
 			// 
