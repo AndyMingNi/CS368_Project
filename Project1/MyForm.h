@@ -9,7 +9,6 @@ namespace Project1 {
 	using namespace System::Data;
 	using namespace System::Drawing;
 	using namespace System::IO;
-
 	/// <summary>
 	/// Summary for MyForm
 	/// </summary>
@@ -19,11 +18,30 @@ namespace Project1 {
 		String ^ eventTime;
 		String ^ eventName;
 		String ^ userNotes;
+		String ^ lineData;
 		StreamWriter ^ outputStream;
+		StreamReader ^ inputStream;
+
 		MyForm(void)
 		{
+
 			InitializeComponent();
+			try {
+				inputStream = gcnew StreamReader("eventLog");
+				lineData = inputStream->ReadLine();
+				while (lineData != nullptr) {
+
+					this->eventPreview->Items->Add(lineData);
+					lineData = inputStream->ReadLine();
+				}
+				inputStream->Close();
+			} catch( FileNotFoundException ^ ex ){
+
+			}
+			
 			outputStream = gcnew StreamWriter("eventLog", true);
+			
+
 			//
 			//TODO: Add the constructor code here
 			//
