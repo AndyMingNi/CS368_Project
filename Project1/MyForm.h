@@ -29,9 +29,11 @@ namespace Project1 {
 			try {
 				inputStream = gcnew StreamReader("eventLog");
 				lineData = inputStream->ReadLine();
+				
 				while (lineData != nullptr) {
-
+					lineData = lineData->Replace("$@$", " ");
 					this->eventPreview->Items->Add(lineData);
+
 					lineData = inputStream->ReadLine();
 				}
 				inputStream->Close();
