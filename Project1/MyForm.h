@@ -328,12 +328,17 @@ namespace Project1 {
 	}
 
 	private: System::Void buttonSaveEvent_Click(System::Object^  sender, System::EventArgs^  e) {
-		if (eventName->Length > 0) {
-			outputStream->WriteLine(eventName + "$@$" + eventTime + "$@$" + userNotes);
-			outputStream->Flush();
-			outputStream->Close();
-			writeText();
-			outputStream = gcnew StreamWriter("eventLog", true);
+		try {
+			if (eventName->Length > 0) {
+				outputStream->WriteLine(eventName + "$@$" + eventTime + "$@$" + userNotes);
+				outputStream->Flush();
+				outputStream->Close();
+				writeText();
+				outputStream = gcnew StreamWriter("eventLog", true);
+			}
+		}
+		catch (NullReferenceException ^ex1) {
+
 		}
 	}
 	private: System::Void buttonNewClear_Click(System::Object^  sender, System::EventArgs^  e) {
