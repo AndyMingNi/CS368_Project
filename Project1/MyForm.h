@@ -26,20 +26,7 @@ namespace Project1 {
 		{
 
 			InitializeComponent();
-			try {
-				inputStream = gcnew StreamReader("eventLog");
-				lineData = inputStream->ReadLine();
-				
-				while (lineData != nullptr) {
-					lineData = lineData->Replace("$@$", " ");
-					this->eventPreview->Items->Add(lineData);
-
-					lineData = inputStream->ReadLine();
-				}
-				inputStream->Close();
-			} catch( FileNotFoundException ^ ex ){
-
-			}
+			writeText();
 			
 			outputStream = gcnew StreamWriter("eventLog", true);
 			
@@ -285,6 +272,23 @@ namespace Project1 {
 
 		}
 #pragma endregion
+	private: System::Void writeText() {
+		try {
+			inputStream = gcnew StreamReader("eventLog");
+			lineData = inputStream->ReadLine();
+			this->eventPreview->Items->Clear();
+			while (lineData != nullptr) {
+				lineData = lineData->Replace("$@$", " ");
+				this->eventPreview->Items->Add(lineData);
+
+				lineData = inputStream->ReadLine();
+			}
+			inputStream->Close();
+		}
+		catch (FileNotFoundException ^ ex) {
+
+		}
+	}
 	private: System::Void dateTimePicker_ValueChanged(System::Object^  sender, System::EventArgs^  e) {
 		eventTime = dateTimePicker->Value.ToShortDateString();
 	}
@@ -299,6 +303,9 @@ namespace Project1 {
 		if (eventName->Length > 0) {
 			outputStream->WriteLine(eventName + "$@$" + eventTime + "$@$" + userNotes);
 			outputStream->Flush();
+			outputStream->Close();
+			writeText();
+			outputStream = gcnew StreamWriter("eventLog", true);
 		}
 	}
 	private: System::Void buttonNewClear_Click(System::Object^  sender, System::EventArgs^  e) {
