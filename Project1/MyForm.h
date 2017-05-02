@@ -73,7 +73,8 @@ namespace Project1 {
 	private: System::Windows::Forms::DateTimePicker^  dateTimePicker;
 	private: System::Windows::Forms::Timer^  timer1;
 	private: System::Windows::Forms::Label^  labelAlarmPicker;
-	private: System::Windows::Forms::TextBox^  NotesTF;
+	private: System::Windows::Forms::TextBox^  notesTF;
+
 	private: System::Windows::Forms::NumericUpDown^  alarmTimePicker;
 	private: System::Windows::Forms::Label^  labelUEO;
 	private: System::Windows::Forms::ListView^  eventPreview;
@@ -103,7 +104,7 @@ namespace Project1 {
 			this->buttonNewClear = (gcnew System::Windows::Forms::Button());
 			this->buttonSaveEvent = (gcnew System::Windows::Forms::Button());
 			this->alarmCheckBox = (gcnew System::Windows::Forms::CheckBox());
-			this->NotesTF = (gcnew System::Windows::Forms::TextBox());
+			this->notesTF = (gcnew System::Windows::Forms::TextBox());
 			this->alarmTimePicker = (gcnew System::Windows::Forms::NumericUpDown());
 			this->labelAlarmPicker = (gcnew System::Windows::Forms::Label());
 			this->eventTitleTF = (gcnew System::Windows::Forms::TextBox());
@@ -129,7 +130,7 @@ namespace Project1 {
 			this->groupBox1->Controls->Add(this->buttonNewClear);
 			this->groupBox1->Controls->Add(this->buttonSaveEvent);
 			this->groupBox1->Controls->Add(this->alarmCheckBox);
-			this->groupBox1->Controls->Add(this->NotesTF);
+			this->groupBox1->Controls->Add(this->notesTF);
 			this->groupBox1->Controls->Add(this->alarmTimePicker);
 			this->groupBox1->Controls->Add(this->labelAlarmPicker);
 			this->groupBox1->Controls->Add(this->eventTitleTF);
@@ -175,14 +176,14 @@ namespace Project1 {
 			this->alarmCheckBox->Text = L"Alarm (On/Off):";
 			this->alarmCheckBox->UseVisualStyleBackColor = true;
 			// 
-			// NotesTF
+			// notesTF
 			// 
-			this->NotesTF->Location = System::Drawing::Point(52, 153);
-			this->NotesTF->Multiline = true;
-			this->NotesTF->Name = L"NotesTF";
-			this->NotesTF->Size = System::Drawing::Size(351, 118);
-			this->NotesTF->TabIndex = 8;
-			this->NotesTF->TextChanged += gcnew System::EventHandler(this, &MyForm::NotesTF_TextChanged);
+			this->notesTF->Location = System::Drawing::Point(52, 153);
+			this->notesTF->Multiline = true;
+			this->notesTF->Name = L"notesTF";
+			this->notesTF->Size = System::Drawing::Size(350, 118);
+			this->notesTF->TabIndex = 8;
+			this->notesTF->TextChanged += gcnew System::EventHandler(this, &MyForm::notesTF_TextChanged);
 			// 
 			// alarmTimePicker
 			// 
@@ -269,7 +270,7 @@ namespace Project1 {
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(691, 355);
+			this->ClientSize = System::Drawing::Size(691, 368);
 			this->Controls->Add(this->eventPreview);
 			this->Controls->Add(this->labelUEO);
 			this->Controls->Add(this->groupBox1);
@@ -290,8 +291,8 @@ namespace Project1 {
 	private: System::Void eventTitleTF_TextChanged(System::Object^  sender, System::EventArgs^  e) {
 		eventName = eventTitleTF->Text;
 	}
-	private: System::Void NotesTF_TextChanged(System::Object^  sender, System::EventArgs^  e) {
-		userNotes = NotesTF->Text;
+	private: System::Void notesTF_TextChanged(System::Object^  sender, System::EventArgs^  e) {
+		userNotes = notesTF->Text;
 	}
 
 	private: System::Void buttonSaveEvent_Click(System::Object^  sender, System::EventArgs^  e) {
@@ -305,7 +306,7 @@ namespace Project1 {
 		eventTime->Empty;
 		eventTitleTF->Clear();
 		eventName->Empty;
-		NotesTF->Clear();
+		notesTF->Clear();
 		userNotes->Empty;
 	}
 };
