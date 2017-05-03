@@ -273,7 +273,9 @@ namespace Project1 {
 			this->eventPreview->AutoArrange = false;
 			this->eventPreview->FullRowSelect = true;
 			this->eventPreview->View = View::Details;
-			this->eventPreview->Columns->Add(gcnew ColumnHeader("Events"));
+			ColumnHeader ^ column = gcnew ColumnHeader();
+			column->Text = "Events";
+			this->eventPreview->Columns->Add(column);
 
 			this->eventPreview->GridLines = true;
 			this->eventPreview->LabelWrap = false;
