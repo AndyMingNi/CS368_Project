@@ -332,7 +332,12 @@ namespace Project1 {
 
 		}
 		finally {
-			inputStream->Close();
+			try {
+				inputStream->Close();
+			}
+			catch (NullReferenceException ^ ex1) {
+
+			}
 		}
 	}
 	private: System::Void dateTimePicker_ValueChanged(System::Object^  sender, System::EventArgs^  e) {
@@ -347,7 +352,7 @@ namespace Project1 {
 
 	private: System::Void buttonSaveEvent_Click(System::Object^  sender, System::EventArgs^  e) {
 		try {
-			if (eventName->Length > 0) {
+			if (eventName->Length > 0 && eventTime->Length > 0) {
 				outputStream = gcnew StreamWriter("eventLog", true);
 				outputStream->WriteLine(eventName + "$@$" + eventTime + "$@$" + userNotes);
 				outputStream->Flush();
@@ -372,10 +377,31 @@ private: System::Void eventPreview_MouseDoubleClick(System::Object^  sender, Sys
 
 	ListViewHitTestInfo ^ info = this->eventPreview->HitTest(e->X, e->Y);
 	ListViewItem ^ item = info->Item;
+	String ^ currEvent = item->Text;
 	if (item != nullptr) {
-		Debug::WriteLine(item->Text);
+		Debug::WriteLine(currEvent);
 		MyForm1 ^ form = gcnew MyForm1();
+		String ^ date;
 		form->Show();
+		String ^ title = currEvent->Substring(0, currEvent->IndexOf(" "));
+		Debug::WriteLine(title);
+		String ^ notes;
+		currEvent = currEvent->Substring(currEvent->IndexOf(" ")+1);
+		if (currEvent->IndexOf(" ") == -1) {
+			date = currEvent;
+			Debug::WriteLine(date);
+		}
+		else {
+			date = currEvent->Substring(0, currEvent->IndexOf(" "));
+			Debug::WriteLine(date);
+			currEvent = currEvent->Substring(currEvent->IndexOf(" ") + 1);
+			if (currEvent->Length > 0) {
+				notes = currEvent;
+				Debug::WriteLine(notes);
+			}
+		}
+		
+
 	}
 	else {
 
