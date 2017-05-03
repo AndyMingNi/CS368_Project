@@ -30,8 +30,6 @@ namespace Project1 {
 			InitializeComponent();
 			writeText();
 			
-			outputStream = gcnew StreamWriter("eventLog", true);
-			
 
 			//
 			//TODO: Add the constructor code here
@@ -330,11 +328,11 @@ namespace Project1 {
 	private: System::Void buttonSaveEvent_Click(System::Object^  sender, System::EventArgs^  e) {
 		try {
 			if (eventName->Length > 0) {
+				outputStream = gcnew StreamWriter("eventLog", true);
 				outputStream->WriteLine(eventName + "$@$" + eventTime + "$@$" + userNotes);
 				outputStream->Flush();
 				outputStream->Close();
 				writeText();
-				outputStream = gcnew StreamWriter("eventLog", true);
 			}
 		}
 		catch (NullReferenceException ^ex1) {
