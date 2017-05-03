@@ -225,6 +225,7 @@ namespace Project1 {
 			this->dateTimePicker->Size = System::Drawing::Size(265, 22);
 			this->dateTimePicker->TabIndex = 3;
 			this->dateTimePicker->ValueChanged += gcnew System::EventHandler(this, &MyForm::dateTimePicker_ValueChanged);
+			eventTime = dateTimePicker->Value.ToShortDateString();
 			// 
 			// labelNotes
 			// 
