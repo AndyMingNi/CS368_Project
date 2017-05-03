@@ -1,10 +1,13 @@
 #pragma once
+#include "MyForm1.h";
 
 namespace Project1 {
 
 	using namespace System;
+	using namespace System::Diagnostics;
 	using namespace System::ComponentModel;
 	using namespace System::Collections;
+	using namespace System::Collections::Generic;
 	using namespace System::Windows::Forms;
 	using namespace System::Data;
 	using namespace System::Drawing;
@@ -20,6 +23,8 @@ namespace Project1 {
 		String ^ userNotes;
 		String ^ lineData;
 		StreamWriter ^ outputStream;
+		List<String^> ^ events;
+
 	private: System::Windows::Forms::ColumnHeader^  columnHeader1;
 	public:
 		StreamReader ^ inputStream;
@@ -28,6 +33,7 @@ namespace Project1 {
 		{
 
 			InitializeComponent();
+			events = gcnew List<String^>;
 			writeText();
 			
 
@@ -263,18 +269,20 @@ namespace Project1 {
 			// eventPreview
 			// 
 			this->eventPreview->Alignment = System::Windows::Forms::ListViewAlignment::Left;
-			this->eventPreview->View = View::Details;
 			this->eventPreview->AutoArrange = false;
 			this->eventPreview->FullRowSelect = true;
+			this->eventPreview->View = View::Details;
+			this->eventPreview->Columns->Add(gcnew ColumnHeader("Events"));
+
 			this->eventPreview->GridLines = true;
 			this->eventPreview->LabelWrap = false;
 			this->eventPreview->Location = System::Drawing::Point(28, 257);
 			this->eventPreview->Margin = System::Windows::Forms::Padding(4);
-			this->eventPreview->Columns->Add("event", -2, HorizontalAlignment::Left);
 			this->eventPreview->Name = L"eventPreview";
 			this->eventPreview->Size = System::Drawing::Size(297, 168);
 			this->eventPreview->TabIndex = 3;
 			this->eventPreview->UseCompatibleStateImageBehavior = false;
+			this->eventPreview->MouseDoubleClick += gcnew System::Windows::Forms::MouseEventHandler(this, &MyForm::eventPreview_MouseDoubleClick);
 			// 
 			// MyForm
 			// 
@@ -298,21 +306,33 @@ namespace Project1 {
 #pragma endregion
 	private: System::Void writeText() {
 		try {
-			inputStream = gcnew StreamReader("eventLog");
-			lineData = inputStream->ReadLine();
+			events->Clear();
 			this->eventPreview->Items->Clear();
+		}
+		catch (NullReferenceException ^ ex1) {
+		}
+		try {
+			inputStream = gcnew StreamReader("eventLog", true);
+			lineData = inputStream->ReadLine();
 			while (lineData != nullptr) {
 				lineData = lineData->Replace("$@$", " ");
 				lineData = lineData->Replace("  ", " ");
 				//this->eventPreview->Columns->TextAlign = HorizontalAlignment::Right;
-				this->eventPreview->Items->Add(gcnew ListViewItem(lineData	 ));
-
+				this->eventPreview->Items->Add(gcnew ListViewItem(lineData));
+				this->eventPreview->AutoResizeColumn(0, ColumnHeaderAutoResizeStyle::ColumnContent);
+				events->Add(lineData);
 				lineData = inputStream->ReadLine();
 			}
-			inputStream->Close();
+			
 		}
 		catch (FileNotFoundException ^ ex) {
 
+		}
+		catch (NullReferenceException ^ ex1) {
+
+		}
+		finally {
+			inputStream->Close();
 		}
 	}
 	private: System::Void dateTimePicker_ValueChanged(System::Object^  sender, System::EventArgs^  e) {
@@ -347,5 +367,19 @@ namespace Project1 {
 		notesTF->Clear();
 		userNotes->Empty;
 	}
+private: System::Void eventPreview_MouseDoubleClick(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e) {
+	Debug::WriteLine("click registered");
+
+	ListViewHitTestInfo ^ info = this->eventPreview->HitTest(e->X, e->Y);
+	ListViewItem ^ item = info->Item;
+	if (item != nullptr) {
+		Debug::WriteLine(item->Text);
+		MyForm1 ^ form = gcnew MyForm1();
+		form->Show();
+	}
+	else {
+
+	}
+}
 };
 }
