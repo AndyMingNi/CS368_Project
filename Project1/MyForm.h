@@ -1,4 +1,5 @@
 #pragma once
+
 #include "MyForm1.h";
 
 namespace Project1 {
@@ -307,6 +308,12 @@ namespace Project1 {
 
 		}
 #pragma endregion
+		/**
+		* this method clears the events list and the eventPreview box.
+		* then it will read in a line from the file.  Each line is parsed
+		* and then added to the events list and eventPreview box.
+		* at the end the inputStream is closed.
+		*/
 	private: System::Void writeText() {
 		try {
 			events->Clear();
@@ -318,12 +325,13 @@ namespace Project1 {
 			inputStream = gcnew StreamReader("eventLog", true);
 			lineData = inputStream->ReadLine();
 			while (lineData != nullptr) {
+				events->Add(lineData);
 				lineData = lineData->Replace("$@$", " ");
 				lineData = lineData->Replace("  ", " ");
 				//this->eventPreview->Columns->TextAlign = HorizontalAlignment::Right;
 				this->eventPreview->Items->Add(gcnew ListViewItem(lineData));
 				this->eventPreview->AutoResizeColumn(0, ColumnHeaderAutoResizeStyle::ColumnContent);
-				events->Add(lineData);
+				
 				lineData = inputStream->ReadLine();
 			}
 			
@@ -376,37 +384,87 @@ namespace Project1 {
 		userNotes->Empty;
 	}
 private: System::Void eventPreview_MouseDoubleClick(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e) {
-	Debug::WriteLine("click registered");
 
 	ListViewHitTestInfo ^ info = this->eventPreview->HitTest(e->X, e->Y);
 	ListViewItem ^ item = info->Item;
 	String ^ currEvent = item->Text;
-	if (item != nullptr) {
-		Debug::WriteLine(currEvent);
-		MyForm1 ^ form = gcnew MyForm1();
-		String ^ date;
-		form->Show();
-		String ^ title = currEvent->Substring(0, currEvent->IndexOf(" "));
-		Debug::WriteLine(title);
-		String ^ notes;
-		currEvent = currEvent->Substring(currEvent->IndexOf(" ")+1);
-		if (currEvent->IndexOf(" ") == -1) {
-			date = currEvent;
-			Debug::WriteLine(date);
-		}
-		else {
-			date = currEvent->Substring(0, currEvent->IndexOf(" "));
-			Debug::WriteLine(date);
-			currEvent = currEvent->Substring(currEvent->IndexOf(" ") + 1);
+	try {
+		if (item != nullptr) {
+			MyForm1 ^ form = gcnew MyForm1();
+			String ^ date;
+			int i = 0;
+			//find event that was clicked on in the events list.
+			//this has the $@$ characters, which are helpful for parsing
+
+			for (i; i < events->Count; i++) {
+				String ^ current = events[i];
+				current = current->Replace("$@$", " ");
+				current = current->Replace("  ", " ");
+				if (current->Equals(currEvent)) {
+					break;
+				}
+			}
+			currEvent = events[i];
+			String ^ title = currEvent->Substring(0, currEvent->IndexOf("$@$"));
+			String ^ notes = "";
+			currEvent = currEvent->Substring(currEvent->IndexOf("$@$") + 3);
+
+			date = currEvent->Substring(0, currEvent->IndexOf("$@$"));
+			currEvent = currEvent->Substring(currEvent->IndexOf("$@$") + 3);
 			if (currEvent->Length > 0) {
 				notes = currEvent;
-				Debug::WriteLine(notes);
 			}
-		}
-		
 
+			form->passEvents(events, title, date, notes);
+			form->ShowDialog();
+			String ^ result = form->result;
+			if (result->Equals("save")) {
+				String ^ lineData = form->eventName + "$@$" + form->eventTime + "$@$" + form->userNotes;
+				int  i = 0;
+				while (!events[i]->Equals(title + "$@$" + date + "$@$" + notes)) {
+					i++;
+				}
+				//finds the correct event entry in the list
+				//updates it with the new info from the other form.
+				//writes to file and then updates the event view.
+				events[i] = lineData;
+				FileInfo ^ fi = gcnew FileInfo("eventLog");
+				outputStream = gcnew StreamWriter(fi->Open(FileMode::Truncate));
+				for (i = 0; i < events->Count; i++) {
+					outputStream->WriteLine(events[i]);
+				}
+				outputStream->Close();
+				writeText();
+
+			}
+			else if (result->Equals("delete")) {
+				//delete option.
+				String ^ lineData = form->eventName + "$@$" + form->eventTime + "$@$" + form->userNotes;
+				int  i = 0;
+				while (!events[i]->Equals(title + "$@$" + date + "$@$" + notes)) {
+					i++;
+				}
+				//removes selected items from file.
+				events->RemoveAt(i);
+				//clears the eventLog, writes the events list, then displays updated list in the event Preview
+				FileInfo ^ fi = gcnew FileInfo("eventLog");
+				outputStream = gcnew StreamWriter(fi->Open(FileMode::Truncate));
+				for (i = 0; i < events->Count; i++) {
+					outputStream->WriteLine(events[i]);
+				}
+				outputStream->Close();
+				writeText();
+			}
+			else {
+				//cancel option. do nothing
+			}
+
+		}
+		else {
+
+		}
 	}
-	else {
+	catch (ArgumentOutOfRangeException ^ ex1) {
 
 	}
 }
