@@ -1,6 +1,6 @@
 #pragma once
 
-#include "MyForm1.h";
+#include "MyForm1.h"
 
 namespace Project1 {
 
@@ -34,6 +34,12 @@ namespace Project1 {
 		{
 
 			InitializeComponent();
+			ColumnHeader ^ column = gcnew ColumnHeader();
+			column->Text = "Events";
+			this->eventPreview->Columns->Add(column);
+			eventTime = dateTimePicker->Value.ToShortDateString();
+
+
 			events = gcnew List<String^>;
 			writeText();
 			
@@ -226,7 +232,7 @@ namespace Project1 {
 			this->dateTimePicker->Size = System::Drawing::Size(265, 22);
 			this->dateTimePicker->TabIndex = 3;
 			this->dateTimePicker->ValueChanged += gcnew System::EventHandler(this, &MyForm::dateTimePicker_ValueChanged);
-			eventTime = dateTimePicker->Value.ToShortDateString();
+			
 			// 
 			// labelNotes
 			// 
@@ -274,9 +280,6 @@ namespace Project1 {
 			this->eventPreview->AutoArrange = false;
 			this->eventPreview->FullRowSelect = true;
 			this->eventPreview->View = View::Details;
-			ColumnHeader ^ column = gcnew ColumnHeader();
-			column->Text = "Events";
-			this->eventPreview->Columns->Add(column);
 
 			this->eventPreview->GridLines = true;
 			this->eventPreview->LabelWrap = false;
@@ -319,7 +322,7 @@ namespace Project1 {
 			events->Clear();
 			this->eventPreview->Items->Clear();
 		}
-		catch (NullReferenceException ^ ex1) {
+		catch (...) {
 		}
 		try {
 			inputStream = gcnew StreamReader("eventLog", true);
@@ -336,17 +339,14 @@ namespace Project1 {
 			}
 			
 		}
-		catch (FileNotFoundException ^ ex) {
-
-		}
-		catch (NullReferenceException ^ ex1) {
+		catch (...) {
 
 		}
 		finally {
 			try {
 				inputStream->Close();
 			}
-			catch (NullReferenceException ^ ex1) {
+			catch (...) {
 
 			}
 		}
@@ -371,7 +371,7 @@ namespace Project1 {
 				writeText();
 			}
 		}
-		catch (NullReferenceException ^ex1) {
+		catch (...) {
 
 		}
 	}
@@ -464,7 +464,7 @@ private: System::Void eventPreview_MouseDoubleClick(System::Object^  sender, Sys
 
 		}
 	}
-	catch (ArgumentOutOfRangeException ^ ex1) {
+	catch (...) {
 
 	}
 }
