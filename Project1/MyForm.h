@@ -61,31 +61,20 @@ namespace Project1 {
 			}
 		}
 	private: System::Windows::Forms::MonthCalendar^  monthCalendar;
-	protected:
-
-	protected:
 	private: System::Windows::Forms::GroupBox^  groupBox1;
 	private: System::Windows::Forms::Label^  labelNotes;
 	private: System::Windows::Forms::Label^  labelEventTitle;
 	private: System::Windows::Forms::Label^  labelDatePicker;
-
 	private: System::Windows::Forms::TextBox^  eventTitleTF;
 	private: System::Windows::Forms::DateTimePicker^  dateTimePicker;
 	private: System::Windows::Forms::Timer^  timer1;
-
 	private: System::Windows::Forms::TextBox^  notesTF;
-
-
 	private: System::Windows::Forms::Label^  labelUEO;
 	private: System::Windows::Forms::ListView^  eventPreview;
 	private: System::Windows::Forms::Button^  buttonNewClear;
 	private: System::Windows::Forms::Button^  buttonSaveEvent;
-
 	private: System::ComponentModel::IContainer^  components;
 
-	protected:
-
-	private:
 		/// <summary>
 		/// Required designer variable.
 		/// </summary>
@@ -178,7 +167,6 @@ namespace Project1 {
 			// 
 			// dateTimePicker
 			// 
-			this->dateTimePicker->CustomFormat = L"MM/dd/yyyy";
 			this->dateTimePicker->Location = System::Drawing::Point(52, 47);
 			this->dateTimePicker->Name = L"dateTimePicker";
 			this->dateTimePicker->ShowUpDown = true;
@@ -234,6 +222,7 @@ namespace Project1 {
 			this->eventPreview->Size = System::Drawing::Size(224, 137);
 			this->eventPreview->TabIndex = 3;
 			this->eventPreview->UseCompatibleStateImageBehavior = false;
+			this->eventPreview->View = System::Windows::Forms::View::Details;
 			this->eventPreview->MouseDoubleClick += gcnew System::Windows::Forms::MouseEventHandler(this, &MyForm::eventPreview_MouseDoubleClick);
 			// 
 			// MyForm
