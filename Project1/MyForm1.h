@@ -31,7 +31,9 @@ namespace Project1 {
 			//TODO: Add the constructor code here
 			//
 		}
-
+		/**
+		* method used to pass the current event title, date, and notes.
+		*/
 		void passEvents(List<String ^> ^ events, String ^ title, String ^ date, String ^ notes) {
 			this->eventTitleTF1->Text = title;
 			this->notesTF1->Text = notes;

@@ -274,7 +274,7 @@ namespace Project1 {
 				events->Add(lineData);
 				lineData = inputStream->ReadLine();
 			}
-
+			//sorts events so they will occur in a more ordered manner
 			events->Sort();
 			for (int i = 0; i < events->Count; i++) {
 				String ^ lineData;
