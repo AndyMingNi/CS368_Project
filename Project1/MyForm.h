@@ -316,8 +316,12 @@ namespace Project1 {
 			events->Sort();
 			for (int i = 0; i < events->Count; i++) {
 				String ^ lineData;
+				String ^ temp = events[i];
 				lineData = events[i]->Replace("$@$", " ");
 				lineData = lineData->Replace("  ", " ");
+				String ^ date = temp->Substring(0, temp->IndexOf("$@$"));
+				monthCalendar->AddBoldedDate(DateTime::Parse(date));
+				monthCalendar->UpdateBoldedDates();
 				//this->eventPreview->Columns->TextAlign = HorizontalAlignment::Right;
 				this->eventPreview->Items->Add(gcnew ListViewItem(lineData));
 				this->eventPreview->AutoResizeColumn(0, ColumnHeaderAutoResizeStyle::ColumnContent);
