@@ -178,8 +178,7 @@ namespace Project1 {
 			// 
 			// dateTimePicker
 			// 
-			this->dateTimePicker->CustomFormat = L"MM/dd/yyyy hh:mm tt";
-			this->dateTimePicker->Format = System::Windows::Forms::DateTimePickerFormat::Custom;
+			this->dateTimePicker->CustomFormat = L"MM/dd/yyyy";
 			this->dateTimePicker->Location = System::Drawing::Point(52, 47);
 			this->dateTimePicker->Name = L"dateTimePicker";
 			this->dateTimePicker->ShowUpDown = true;
