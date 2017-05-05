@@ -72,15 +72,15 @@ namespace Project1 {
 	private: System::Windows::Forms::TextBox^  eventTitleTF;
 	private: System::Windows::Forms::DateTimePicker^  dateTimePicker;
 	private: System::Windows::Forms::Timer^  timer1;
-	private: System::Windows::Forms::Label^  labelAlarmPicker;
+
 	private: System::Windows::Forms::TextBox^  notesTF;
 
-	private: System::Windows::Forms::NumericUpDown^  alarmTimePicker;
+
 	private: System::Windows::Forms::Label^  labelUEO;
 	private: System::Windows::Forms::ListView^  eventPreview;
 	private: System::Windows::Forms::Button^  buttonNewClear;
 	private: System::Windows::Forms::Button^  buttonSaveEvent;
-	private: System::Windows::Forms::CheckBox^  alarmCheckBox;
+
 	private: System::ComponentModel::IContainer^  components;
 
 	protected:
@@ -103,10 +103,7 @@ namespace Project1 {
 			this->groupBox1 = (gcnew System::Windows::Forms::GroupBox());
 			this->buttonNewClear = (gcnew System::Windows::Forms::Button());
 			this->buttonSaveEvent = (gcnew System::Windows::Forms::Button());
-			this->alarmCheckBox = (gcnew System::Windows::Forms::CheckBox());
 			this->notesTF = (gcnew System::Windows::Forms::TextBox());
-			this->alarmTimePicker = (gcnew System::Windows::Forms::NumericUpDown());
-			this->labelAlarmPicker = (gcnew System::Windows::Forms::Label());
 			this->eventTitleTF = (gcnew System::Windows::Forms::TextBox());
 			this->dateTimePicker = (gcnew System::Windows::Forms::DateTimePicker());
 			this->labelNotes = (gcnew System::Windows::Forms::Label());
@@ -117,7 +114,6 @@ namespace Project1 {
 			this->eventPreview = (gcnew System::Windows::Forms::ListView());
 			this->columnHeader1 = (gcnew System::Windows::Forms::ColumnHeader());
 			this->groupBox1->SuspendLayout();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->alarmTimePicker))->BeginInit();
 			this->SuspendLayout();
 			// 
 			// monthCalendar
@@ -130,10 +126,7 @@ namespace Project1 {
 			// 
 			this->groupBox1->Controls->Add(this->buttonNewClear);
 			this->groupBox1->Controls->Add(this->buttonSaveEvent);
-			this->groupBox1->Controls->Add(this->alarmCheckBox);
 			this->groupBox1->Controls->Add(this->notesTF);
-			this->groupBox1->Controls->Add(this->alarmTimePicker);
-			this->groupBox1->Controls->Add(this->labelAlarmPicker);
 			this->groupBox1->Controls->Add(this->eventTitleTF);
 			this->groupBox1->Controls->Add(this->dateTimePicker);
 			this->groupBox1->Controls->Add(this->labelNotes);
@@ -166,17 +159,6 @@ namespace Project1 {
 			this->buttonSaveEvent->UseVisualStyleBackColor = true;
 			this->buttonSaveEvent->Click += gcnew System::EventHandler(this, &MyForm::buttonSaveEvent_Click);
 			// 
-			// alarmCheckBox
-			// 
-			this->alarmCheckBox->AutoSize = true;
-			this->alarmCheckBox->CheckAlign = System::Drawing::ContentAlignment::MiddleRight;
-			this->alarmCheckBox->Location = System::Drawing::Point(266, 50);
-			this->alarmCheckBox->Name = L"alarmCheckBox";
-			this->alarmCheckBox->Size = System::Drawing::Size(97, 17);
-			this->alarmCheckBox->TabIndex = 10;
-			this->alarmCheckBox->Text = L"Alarm (On/Off):";
-			this->alarmCheckBox->UseVisualStyleBackColor = true;
-			// 
 			// notesTF
 			// 
 			this->notesTF->Location = System::Drawing::Point(52, 153);
@@ -185,23 +167,6 @@ namespace Project1 {
 			this->notesTF->Size = System::Drawing::Size(350, 118);
 			this->notesTF->TabIndex = 8;
 			this->notesTF->TextChanged += gcnew System::EventHandler(this, &MyForm::notesTF_TextChanged);
-			// 
-			// alarmTimePicker
-			// 
-			this->alarmTimePicker->Location = System::Drawing::Point(311, 97);
-			this->alarmTimePicker->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 48, 0, 0, 0 });
-			this->alarmTimePicker->Name = L"alarmTimePicker";
-			this->alarmTimePicker->Size = System::Drawing::Size(92, 20);
-			this->alarmTimePicker->TabIndex = 7;
-			// 
-			// labelAlarmPicker
-			// 
-			this->labelAlarmPicker->AutoSize = true;
-			this->labelAlarmPicker->Location = System::Drawing::Point(266, 81);
-			this->labelAlarmPicker->Name = L"labelAlarmPicker";
-			this->labelAlarmPicker->Size = System::Drawing::Size(97, 13);
-			this->labelAlarmPicker->TabIndex = 6;
-			this->labelAlarmPicker->Text = L"Alarm (0-48 Hours):";
 			// 
 			// eventTitleTF
 			// 
@@ -271,7 +236,6 @@ namespace Project1 {
 			this->eventPreview->TabIndex = 3;
 			this->eventPreview->UseCompatibleStateImageBehavior = false;
 			this->eventPreview->MouseDoubleClick += gcnew System::Windows::Forms::MouseEventHandler(this, &MyForm::eventPreview_MouseDoubleClick);
-			this->eventPreview->View = View::Details;
 			// 
 			// MyForm
 			// 
@@ -286,7 +250,6 @@ namespace Project1 {
 			this->Text = L"Personal Event Calendar";
 			this->groupBox1->ResumeLayout(false);
 			this->groupBox1->PerformLayout();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->alarmTimePicker))->EndInit();
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
