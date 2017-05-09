@@ -101,10 +101,9 @@ namespace Project1 {
 			// label1
 			// 
 			this->label1->AutoSize = true;
-			this->label1->Location = System::Drawing::Point(23, 103);
-			this->label1->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
+			this->label1->Location = System::Drawing::Point(17, 84);
 			this->label1->Name = L"label1";
-			this->label1->Size = System::Drawing::Size(79, 17);
+			this->label1->Size = System::Drawing::Size(61, 13);
 			this->label1->TabIndex = 0;
 			this->label1->Text = L"Event Title:";
 			this->label1->Click += gcnew System::EventHandler(this, &MyForm1::label1_Click);
@@ -112,20 +111,18 @@ namespace Project1 {
 			// label2
 			// 
 			this->label2->AutoSize = true;
-			this->label2->Location = System::Drawing::Point(23, 42);
-			this->label2->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
+			this->label2->Location = System::Drawing::Point(17, 34);
 			this->label2->Name = L"label2";
-			this->label2->Size = System::Drawing::Size(85, 17);
+			this->label2->Size = System::Drawing::Size(66, 13);
 			this->label2->TabIndex = 1;
 			this->label2->Text = L"Date Picker:";
 			// 
 			// label3
 			// 
 			this->label3->AutoSize = true;
-			this->label3->Location = System::Drawing::Point(23, 176);
-			this->label3->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
+			this->label3->Location = System::Drawing::Point(17, 143);
 			this->label3->Name = L"label3";
-			this->label3->Size = System::Drawing::Size(49, 17);
+			this->label3->Size = System::Drawing::Size(38, 13);
 			this->label3->TabIndex = 2;
 			this->label3->Text = L"Notes:";
 			// 
@@ -140,21 +137,18 @@ namespace Project1 {
 			this->groupBox1->Controls->Add(this->label1);
 			this->groupBox1->Controls->Add(this->label3);
 			this->groupBox1->Controls->Add(this->label2);
-			this->groupBox1->Location = System::Drawing::Point(16, 15);
-			this->groupBox1->Margin = System::Windows::Forms::Padding(4);
+			this->groupBox1->Location = System::Drawing::Point(12, 12);
 			this->groupBox1->Name = L"groupBox1";
-			this->groupBox1->Padding = System::Windows::Forms::Padding(4);
-			this->groupBox1->Size = System::Drawing::Size(660, 415);
+			this->groupBox1->Size = System::Drawing::Size(495, 337);
 			this->groupBox1->TabIndex = 3;
 			this->groupBox1->TabStop = false;
 			this->groupBox1->Text = L"Editing Existing Event";
 			// 
 			// cancelChanges
 			// 
-			this->cancelChanges->Location = System::Drawing::Point(420, 366);
-			this->cancelChanges->Margin = System::Windows::Forms::Padding(4);
+			this->cancelChanges->Location = System::Drawing::Point(315, 297);
 			this->cancelChanges->Name = L"cancelChanges";
-			this->cancelChanges->Size = System::Drawing::Size(129, 28);
+			this->cancelChanges->Size = System::Drawing::Size(97, 23);
 			this->cancelChanges->TabIndex = 11;
 			this->cancelChanges->Text = L"Cancel Changes";
 			this->cancelChanges->UseVisualStyleBackColor = true;
@@ -162,10 +156,9 @@ namespace Project1 {
 			// 
 			// deleteEvent
 			// 
-			this->deleteEvent->Location = System::Drawing::Point(512, 30);
-			this->deleteEvent->Margin = System::Windows::Forms::Padding(4);
+			this->deleteEvent->Location = System::Drawing::Point(384, 24);
 			this->deleteEvent->Name = L"deleteEvent";
-			this->deleteEvent->Size = System::Drawing::Size(123, 28);
+			this->deleteEvent->Size = System::Drawing::Size(92, 23);
 			this->deleteEvent->TabIndex = 10;
 			this->deleteEvent->Text = L"Delete Event";
 			this->deleteEvent->UseVisualStyleBackColor = true;
@@ -173,10 +166,9 @@ namespace Project1 {
 			// 
 			// saveChanges
 			// 
-			this->saveChanges->Location = System::Drawing::Point(83, 366);
-			this->saveChanges->Margin = System::Windows::Forms::Padding(4);
+			this->saveChanges->Location = System::Drawing::Point(62, 297);
 			this->saveChanges->Name = L"saveChanges";
-			this->saveChanges->Size = System::Drawing::Size(115, 28);
+			this->saveChanges->Size = System::Drawing::Size(86, 23);
 			this->saveChanges->TabIndex = 9;
 			this->saveChanges->Text = L"Save Changes";
 			this->saveChanges->UseVisualStyleBackColor = true;
@@ -184,42 +176,37 @@ namespace Project1 {
 			// 
 			// notesTF1
 			// 
-			this->notesTF1->Location = System::Drawing::Point(84, 188);
-			this->notesTF1->Margin = System::Windows::Forms::Padding(4);
+			this->notesTF1->Location = System::Drawing::Point(63, 153);
 			this->notesTF1->Multiline = true;
 			this->notesTF1->Name = L"notesTF1";
-			this->notesTF1->Size = System::Drawing::Size(465, 144);
+			this->notesTF1->Size = System::Drawing::Size(350, 118);
 			this->notesTF1->TabIndex = 8;
 			this->notesTF1->TextChanged += gcnew System::EventHandler(this, &MyForm1::notesTF1_TextChanged);
 			// 
 			// eventTitleTF1
 			// 
-			this->eventTitleTF1->Location = System::Drawing::Point(83, 124);
-			this->eventTitleTF1->Margin = System::Windows::Forms::Padding(4);
+			this->eventTitleTF1->Location = System::Drawing::Point(62, 101);
 			this->eventTitleTF1->Name = L"eventTitleTF1";
-			this->eventTitleTF1->Size = System::Drawing::Size(265, 22);
+			this->eventTitleTF1->Size = System::Drawing::Size(200, 20);
 			this->eventTitleTF1->TabIndex = 4;
 			this->eventTitleTF1->TextChanged += gcnew System::EventHandler(this, &MyForm1::eventTitleTF1_TextChanged);
 			// 
 			// dateTimePicker1
 			// 
 			this->dateTimePicker1->CustomFormat = L"MM/dd/yyyy hh:mm tt";
-			this->dateTimePicker1->Format = System::Windows::Forms::DateTimePickerFormat::Custom;
-			this->dateTimePicker1->Location = System::Drawing::Point(83, 62);
-			this->dateTimePicker1->Margin = System::Windows::Forms::Padding(4);
+			this->dateTimePicker1->Location = System::Drawing::Point(62, 50);
 			this->dateTimePicker1->Name = L"dateTimePicker1";
 			this->dateTimePicker1->ShowUpDown = true;
-			this->dateTimePicker1->Size = System::Drawing::Size(265, 22);
+			this->dateTimePicker1->Size = System::Drawing::Size(200, 20);
 			this->dateTimePicker1->TabIndex = 3;
 			this->dateTimePicker1->ValueChanged += gcnew System::EventHandler(this, &MyForm1::dateTimePicker1_ValueChanged);
 			// 
 			// MyForm1
 			// 
-			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
+			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(692, 455);
+			this->ClientSize = System::Drawing::Size(519, 370);
 			this->Controls->Add(this->groupBox1);
-			this->Margin = System::Windows::Forms::Padding(4);
 			this->Name = L"MyForm1";
 			this->Text = L"Event Modifer";
 			this->groupBox1->ResumeLayout(false);

@@ -253,6 +253,7 @@ namespace Project1 {
 		try {
 			events->Clear();
 			this->eventPreview->Items->Clear();
+			monthCalendar->RemoveAllBoldedDates();
 		}
 		catch (...) {
 		}
@@ -273,7 +274,6 @@ namespace Project1 {
 				String ^ date = temp->Substring(0, temp->IndexOf("$@$"));
 				monthCalendar->AddBoldedDate(DateTime::Parse(date));
 				monthCalendar->UpdateBoldedDates();
-				//this->eventPreview->Columns->TextAlign = HorizontalAlignment::Right;
 				this->eventPreview->Items->Add(gcnew ListViewItem(lineData));
 				this->eventPreview->AutoResizeColumn(0, ColumnHeaderAutoResizeStyle::ColumnContent);
 			}
@@ -309,8 +309,14 @@ namespace Project1 {
 				outputStream->Flush();
 				outputStream->Close();
 				writeText();
-				monthCalendar->AddBoldedDate(DateTime::Parse(eventTime));
-				monthCalendar->UpdateBoldedDates();
+				//monthCalendar->AddBoldedDate(DateTime::Parse(eventTime));
+				//monthCalendar->UpdateBoldedDates();
+				dateTimePicker->Value = dateTimePicker->Value.Now;
+				eventTime->Empty;
+				eventTitleTF->Clear();
+				eventName->Empty;
+				notesTF->Clear();
+				userNotes->Empty;
 			}
 		}
 		catch (...) {
